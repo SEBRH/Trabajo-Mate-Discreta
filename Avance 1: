@@ -1,0 +1,220 @@
+#include <iostream>
+#include <string>
+#include <conio.h>
+
+
+
+using namespace std;
+using namespace System;
+
+
+int IngresoDatos()
+{
+	int TamanoArreglo;
+	
+	cout << "Ingrese tamano del arreglo (tiene que ser menor que 7 y mayor que 4): ";
+	cin >> TamanoArreglo;
+
+	while (TamanoArreglo > 7 || TamanoArreglo < 4)
+	{
+		cout << "Ingrese tamano del arreglo (tiene que ser menor que 7 y mayor que 4): ";
+		cin >> TamanoArreglo;
+	}
+	//Validacion
+	
+
+	return TamanoArreglo;
+}
+
+int* IngresoNumeros(int TamanoArreglo)
+{
+	
+	int* Arreglo;
+	Arreglo = new int[TamanoArreglo];
+	int Numeros;
+	for (int i = 0; i < TamanoArreglo; i++)
+	{
+		cout << "Ingrese numeros: ";
+		cin >> Numeros;
+		Arreglo[i] = Numeros;
+
+	}
+
+	return Arreglo;
+}
+
+void MostrarConjunto(int* Arreglo, int TamanoArreglo)
+{
+	cout << "A = {";
+	for (int i = 0; i < TamanoArreglo; i++)
+	{
+		cout << Arreglo[i];
+		if (i < TamanoArreglo - 1)
+		{
+			cout << ",";
+		}
+	}
+	cout << "}";
+}
+
+int* OrdenarConjuntoMatrizMenorMayor(int*Arreglo,int TamanoArreglo)
+{
+	for (int i = 0; i < TamanoArreglo - 1; i++) {
+		for (int k = i + 1; k < TamanoArreglo; k++) {
+			if (Arreglo[i] > Arreglo[k]) {
+				int aux = Arreglo[i];
+				Arreglo[i] = Arreglo[k];
+				Arreglo[k] = aux;
+			}
+		}
+	}
+	return Arreglo;
+}
+
+
+void MostrarConjuntoMatriz(int* Arreglo, int TamanoArreglo)
+{
+	string ConjuntoMatriz = "";
+	
+	for (int i = 0; i < TamanoArreglo; i++)
+	{
+	
+
+		for (int j = 0; j < TamanoArreglo; j++)
+		{
+
+			
+			
+				ConjuntoMatriz += "(" + to_string(Arreglo[i]) + "," + to_string(Arreglo[j]) + ")";
+			
+				
+		}
+		
+		ConjuntoMatriz += "\n";
+		
+	}
+	cout << "Producto Cartesiano.\nAxA: \n" << ConjuntoMatriz;
+
+}
+
+int EscogerTerminos(int TamanoArreglo, int* Arreglo)
+{
+	
+
+	int** MatrizTerminos;
+	MatrizTerminos = new int *[TamanoArreglo] ;
+	for (int i = 0; i < TamanoArreglo; i++)
+	{
+		MatrizTerminos[i] = new int[TamanoArreglo];
+	}
+
+	for (int i = 0; i < TamanoArreglo; i++)
+	{
+		for (int j = 0; j < TamanoArreglo; j++)
+		{
+
+			MatrizTerminos[i][j] = 0;
+
+		}
+	}
+
+	cout << "Ingrese subconjuntos de AxA:\n";
+	int a = 0;
+	int b = 0;
+	int op = 0;
+	int i = 0;
+
+	
+	do
+	{
+
+		do
+		{
+			cin >> a;
+		} while (a > TamanoArreglo);
+
+			cout << "(" << a << ",_)\n";
+			
+			do
+			{
+				cin >> b;
+			} while (b > TamanoArreglo);
+			cout << "(" << a <<"," << b << ")\n";
+		// Aqui ingreso el subconjunto
+
+
+
+			for (int i = 0; i < TamanoArreglo; i++)
+			{
+				for (int j = 0; j < TamanoArreglo; j++)
+				{
+					if (i+1 == a)
+					{
+						if (j+1 == b)
+						{
+							MatrizTerminos[i][j] = 1;
+						}
+					}
+				}
+			}
+			//Verifica donde esta en la matriz y lo cambia a 1
+
+
+
+			cout << "1)...Ingresar otro subconjunto\n";
+			cout << "2)...Listo\n";
+	
+			do
+			{
+				cin >> op;
+			} while (op != 1 && op != 2);
+
+
+	} while (op != 2 && i < TamanoArreglo*TamanoArreglo);
+
+	cout << " ";
+	for (int i = 0; i < TamanoArreglo; i++)
+	{
+		cout << i+1;
+	}
+	cout << "\n";
+	for (int i = 0; i < TamanoArreglo; i++)
+	{
+		cout << i+1;
+		for (int j = 0; j < TamanoArreglo; j++)
+		{
+		
+			cout << MatrizTerminos[i][j];
+			
+		}
+		
+		cout << "\n";
+	}	
+
+	
+
+
+	return 0;
+}
+
+int main()
+{
+	int* Arreglo;
+
+
+	int TamanoArreglo1;
+	int Auxiliar;
+	TamanoArreglo1 = IngresoDatos();
+	Arreglo =IngresoNumeros(TamanoArreglo1);
+	MostrarConjunto(Arreglo, TamanoArreglo1);
+	cout << "\n";
+	Arreglo = OrdenarConjuntoMatrizMenorMayor(Arreglo, TamanoArreglo1);
+	MostrarConjuntoMatriz(Arreglo, TamanoArreglo1);
+
+	EscogerTerminos(TamanoArreglo1, Arreglo);
+	getch();
+	return 0;
+
+
+}
+
