@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <conio.h>
-
+#include <time.h>
 
 
 using namespace std;
@@ -99,8 +99,9 @@ void MostrarConjuntoMatriz(int* Arreglo, int TamanoArreglo)
 
 int EscogerTerminos(int TamanoArreglo, int* Arreglo)
 {
-	
-
+	int n;
+	n = rand() % TamanoArreglo;
+	int op2;
 	int** MatrizTerminos;
 	MatrizTerminos = new int *[TamanoArreglo] ;
 	for (int i = 0; i < TamanoArreglo; i++)
@@ -118,39 +119,85 @@ int EscogerTerminos(int TamanoArreglo, int* Arreglo)
 		}
 	}
 
-	cout << "Ingrese subconjuntos de AxA:\n";
-	int a = 0;
-	int b = 0;
-	int op = 0;
-	int i = 0;
-
-	
+	cout << "\n\n";
+	cout << "Como Desea Escoger los Datos del subconjunto:\n1.Automatico\n2.Manual\n";
 	do
 	{
+		cin >> op2;
+	} while (op2 != 1 && op2 != 2);
+	if (op2 == 1)
+	{
+		for (int i = 0; i < TamanoArreglo-n; i++)
+		{
+			n = rand() % Arreglo[i];
+		}
+	}
+	if (op2 == 2)
+	{
+
+
+
+		cout << "Ingrese subconjuntos de AxA:\n";
+		int a = 0;
+		int b = 0;
+		int op = 0;
+		int i = 0;
+		bool IngresoValido = false;
+
 
 		do
 		{
-			cin >> a;
-		} while (a > TamanoArreglo);
 
+			do
+			{
+				cin >> a;
+
+				for (int i = 0; i < TamanoArreglo; i++)
+				{
+					if (a == Arreglo[i])
+					{
+						IngresoValido = true;
+					}
+
+				}
+
+				if (IngresoValido == false)
+				{
+					cout << "Error: Ingrese numeros del conjunto A...\n";
+				}
+
+			} while (IngresoValido != true);
+			IngresoValido = false;
 			cout << "(" << a << ",_)\n";
-			
+
 			do
 			{
 				cin >> b;
-			} while (b > TamanoArreglo);
-			cout << "(" << a <<"," << b << ")\n";
-		// Aqui ingreso el subconjunto
+				for (int i = 0; i < TamanoArreglo; i++)
+				{
+					if (b == Arreglo[i])
+					{
+						IngresoValido = true;
+					}
 
+				}
+				if (IngresoValido == false)
+				{
+					cout << "Error: Ingrese numeros del conjunto A...\n";
+				}
+			} while (IngresoValido != true);
+			cout << "(" << a << "," << b << ")\n";
+			// Aqui ingreso el subconjunto
+			IngresoValido = false;
 
 
 			for (int i = 0; i < TamanoArreglo; i++)
 			{
 				for (int j = 0; j < TamanoArreglo; j++)
 				{
-					if (i+1 == a)
+					if (i + 1 == a)
 					{
-						if (j+1 == b)
+						if (j + 1 == b)
 						{
 							MatrizTerminos[i][j] = 1;
 						}
@@ -163,14 +210,16 @@ int EscogerTerminos(int TamanoArreglo, int* Arreglo)
 
 			cout << "1)...Ingresar otro subconjunto\n";
 			cout << "2)...Listo\n";
-	
+
 			do
 			{
 				cin >> op;
 			} while (op != 1 && op != 2);
 
 
-	} while (op != 2 && i < TamanoArreglo*TamanoArreglo);
+		} while (op != 2 && i < TamanoArreglo * TamanoArreglo);
+
+	}
 
 	cout << " ";
 	for (int i = 0; i < TamanoArreglo; i++)
@@ -197,11 +246,13 @@ int EscogerTerminos(int TamanoArreglo, int* Arreglo)
 	return 0;
 }
 
+
+
 int main()
 {
 	int* Arreglo;
-
-
+	srand(time(NULL));
+	
 	int TamanoArreglo1;
 	int Auxiliar;
 	TamanoArreglo1 = IngresoDatos();
@@ -211,7 +262,10 @@ int main()
 	Arreglo = OrdenarConjuntoMatrizMenorMayor(Arreglo, TamanoArreglo1);
 	MostrarConjuntoMatriz(Arreglo, TamanoArreglo1);
 
-	EscogerTerminos(TamanoArreglo1, Arreglo);
+	
+	
+
+	
 	getch();
 	return 0;
 
