@@ -1,0 +1,994 @@
+#include <iostream>
+#include <string>
+#include <conio.h>
+#include <time.h>
+
+using namespace std;
+using namespace System;
+
+
+
+
+
+int IngresoDatos()
+{
+	int TamanoArreglo;
+	
+	cout << "Ingrese tamano del arreglo (tiene que ser menor que 7 y mayor que 4): ";
+	cin >> TamanoArreglo;
+
+	while (TamanoArreglo > 7 || TamanoArreglo < 4)
+	{
+		cout << "Ingrese tamano del arreglo (tiene que ser menor que 7 y mayor que 4): ";
+		cin >> TamanoArreglo;
+	}
+	//Validacion
+	
+
+	return TamanoArreglo;
+}
+
+int* IngresoNumeros(int TamanoArreglo)
+{
+	bool numdif = false;
+	int* Arreglo;
+	Arreglo = new int[TamanoArreglo];
+	bool cond = false;
+
+	for (int i = 0; i < TamanoArreglo; i++)
+	{
+		Arreglo[i] = 0;
+	}
+
+	int Numeros;
+	int i=0;
+	int NumerosIng = 0;
+	
+	do
+	{
+		cout << "\n================================================\n";
+		cout << "Ingrese numeros: ";
+		cin >> Numeros;
+
+		for (int j = 0; j < TamanoArreglo; j++)
+		{
+			
+		
+			if (Arreglo[j]==Numeros)
+			{
+				numdif = false;
+				cout << "Error Se ingreso el mismo valor, Intente Denuevo...\n";
+				cond = true;
+			}
+			else if(cond == false)
+			{
+				numdif = true;
+			}
+
+		}
+		if (numdif == true)
+		{
+			cout << "\nNumero: " << Numeros << " Ingresado...\n";
+			Arreglo[i] = Numeros;
+			i++;
+			numdif = false;
+			NumerosIng++;
+		}
+		cond = false;
+		numdif = false;
+		
+
+	} while (NumerosIng < TamanoArreglo);
+
+	return Arreglo;
+}
+
+void MostrarConjunto(int* Arreglo, int TamanoArreglo)
+{
+	cout << "A = {";
+	for (int i = 0; i < TamanoArreglo; i++)
+	{
+		cout << Arreglo[i];
+		if (i < TamanoArreglo - 1)
+		{
+			cout << ",";
+		}
+	}
+	cout << "}";
+}
+
+int* OrdenarConjuntoMatrizMenorMayor(int*Arreglo,int TamanoArreglo)
+{
+	for (int i = 0; i < TamanoArreglo - 1; i++) {
+		for (int k = i + 1; k < TamanoArreglo; k++) {
+			if (Arreglo[i] > Arreglo[k]) {
+				int aux = Arreglo[i];
+				Arreglo[i] = Arreglo[k];
+				Arreglo[k] = aux;
+			}
+		}
+	}
+	return Arreglo;
+}
+
+
+void MostrarConjuntoMatriz(int* Arreglo, int TamanoArreglo)
+{
+	string ConjuntoMatriz = "";
+	
+	for (int i = 0; i < TamanoArreglo; i++)
+	{
+	
+
+		for (int j = 0; j < TamanoArreglo; j++)
+		{
+
+			
+			
+				ConjuntoMatriz += "(" + to_string(Arreglo[i]) + "," + to_string(Arreglo[j]) + ")";
+			
+				
+		}
+		
+		ConjuntoMatriz += "\n";
+		
+	}
+	cout << "Producto Cartesiano.\nAxA: \n" << ConjuntoMatriz;
+
+}
+
+int EquivalenciauOrdenParcial(int Reflexivdad, int Simetria, int Transitividad)
+{
+	if (Reflexivdad == 1 && Simetria == 2 && Transitividad == 1)
+	{
+		cout << "La relacion es de Orden Parcial al ser Reflexiva, Antisimetrica y Transitiva.\n";
+		return 2;
+	}
+	if (Reflexivdad == 1 && Simetria == 1&& Transitividad == 1)
+	{
+		cout << "La relacion es de Equivalencia al ser Reflexiva, Simetrica y Transitiva.\n";
+		return 1;
+	}
+
+	return 0;
+}
+
+
+
+int muestra_reflexiva(int** Arreglo, int TamaoArreglo) {
+	int r = 0;
+	int ir = 0;
+	for (int i = 0; i < TamaoArreglo; i++)
+	{
+		for (int j = 0; j < TamaoArreglo; j++)
+		{
+			if (i == j)
+			{
+				if (Arreglo[i][j] == 1)
+				{
+					r++;
+				}
+				
+				if (Arreglo[i][j] != 1)
+				{
+						ir++;
+				}
+				
+			}
+		}
+	}
+	if (r == TamaoArreglo)
+	{
+		cout << "Reflexiva.....[Si]" << endl;
+		cout << "Irreflexiva...[No]" << endl;
+		return 1;
+	}
+	else if (ir == TamaoArreglo)
+	{
+		cout << "Reflexiva.....[No]" << endl;
+		cout << "Irreflexiva...[Si]" << endl;
+		return 2;
+	}
+	else
+	{
+		cout << "Reflexiva.....[No]" << endl;
+		cout << "Irreflexiva...[No]" << endl;
+		return 3;
+	}
+
+
+}
+
+int muestra_simetria(int** Arreglo, int TamaoArreglo)
+{
+	int val = 1;
+	int S = 0;
+	bool AS = true;
+	int ATS = 0;
+	bool Arriba = true;
+	for (int i = 0; i < TamaoArreglo; i++)//Validar Simetria
+
+	{
+		for (int j = 0; j < TamaoArreglo; j++)
+		{
+			if (i != j)
+			{
+				if (Arreglo[i][j] == Arreglo[j][i] && Arreglo[i][j] + Arreglo[j][i] > 1)
+				{
+					S++;
+				}
+
+				if (Arreglo[i][j] != Arreglo[j][i])
+				{
+					
+					
+					ATS++;
+					
+					if (Arreglo[i][j] == 1 && i > j && val > 0)
+					{
+						Arriba = false;
+						val = val*0;
+					}
+					else if (Arreglo[i][j] == 1 && j > i && val > 0)
+					{
+						Arriba = true;
+						val = val *0;
+					}
+
+				}
+
+				if (Arriba == true)
+				{
+					if (Arreglo[j][i] == 1 && j>i)
+					{
+						AS = false;
+						
+					}
+				}
+				else if(Arriba == false)
+				{
+					if (Arreglo[i][j] == 1 && j<i)
+					{
+						AS = false;
+						
+					}
+				}
+				
+				
+					
+				
+			}
+			
+			
+
+
+		}
+	}
+	if ( S>1 && ATS == 0)
+	{
+		cout << "Antisimetrica.[No]\n";
+		cout << "Simetrica.....[Si]\n";
+		cout << "Asimetrica....[No]\n";
+		return 1;
+	}
+	else if(ATS > 0 && AS == false)
+	{
+		cout << "Antisimetrica.[Si]\n"; 
+		cout << "Simetrica.....[No]\n";
+		cout << "Asimetrica....[No]\n";
+		return 2;
+	}
+
+	if (AS == true)
+	{
+		cout << "Antisimetrica.[No]\n";
+		cout << "Simetrica.....[No]\n";
+		cout << "Asimetrica....[Si]\n";
+		return 3;
+		        
+	}
+
+	
+	/*if (Arriba == true)
+	{
+		cout << "Arriba j>i";
+	}
+	else
+	{
+		cout << "Abajo
+		i>j";
+	}*/
+
+	return 0;
+}
+
+int EncontrarValoresDeMatrizTrans(int** Arreglo, int TamaoArreglo, int j, int n)
+{
+	int resultado = 0;
+	int fin = 0;
+	int k = 0;
+	
+	
+
+		for (int k = 0; k < TamaoArreglo; k++)
+		{
+			resultado = resultado + Arreglo[j][k] * Arreglo[k][n];
+
+			/*cout << "Calculo: (" << j + 1 << ", " << k + 1 << ") * (" << k + 1 << ", " << n + 1 << ") = " << resultado << "\n";*/
+			if (resultado == 1)
+			{
+				fin = resultado;
+			}
+			resultado = 0;
+		}
+		/*cout << "\n(" << j+1 << "," << n+1 << ")=" << fin <<"\n";*/
+		
+
+
+		//cout << "\n======== Listo =======\n";
+		
+
+
+	return fin;
+}
+
+int** Matriz_transitiva(int** Arreglo, int TamaoArreglo)
+{
+	int TA = TamaoArreglo;
+	int transitivida = 0;
+	int** Arreglo1 = Arreglo;
+	int** MatrizTransitiva;
+	MatrizTransitiva = new int* [TamaoArreglo];
+	int valorMatriz = 0;
+	for (int i = 0; i < TamaoArreglo; i++)
+	{
+		MatrizTransitiva[i] = new int[TamaoArreglo];
+	}
+
+	for (int i = 0; i < TamaoArreglo; i++)
+	{
+		for (int j = 0; j < TamaoArreglo; j++)
+		{
+
+			MatrizTransitiva[i][j] = 0;
+
+		}
+	}
+
+	/*usar dsp para asignar a la nueva matriz*/
+
+
+
+	
+	for (int i = 0; i < TamaoArreglo; i++)//Validar Transitivida Las partes en verde en esta y la sub funcion, son para visualizar el proceso
+	{
+
+		for (int j = 0; j < TamaoArreglo; j++)
+		{
+
+			valorMatriz = EncontrarValoresDeMatrizTrans(Arreglo1, TA, i, j);
+			/*cout << "Calculo para: (" << i + 1 << "," << j + 1 << ") = " << valorMatriz << "\n\n";*/
+			MatrizTransitiva[i][j] = valorMatriz;
+
+			valorMatriz = 0;
+		}
+		/*cout << "\nSecuencia terminada con el valor:" << valorMatriz << "\n";*/
+		valorMatriz = 0;
+	}
+
+	return MatrizTransitiva;
+}
+
+
+int muestra_transitividad(int** Arreglo, int TamaoArreglo, int** MatrizTransitiva)
+{
+	int TA = TamaoArreglo;
+	int transitivida = 0;
+	int** Arreglo1 = Arreglo;
+	int subconjuntos = 0;
+
+	cout << "\n\nMatriz Transitiva:  A^T\n";
+
+	cout << " ";
+	for (int i = 0; i < TamaoArreglo; i++)
+	{
+		cout << i + 1;
+	}
+	cout << "\n";
+	for (int i = 0; i < TamaoArreglo; i++)
+	{
+		cout << i + 1;
+		for (int j = 0; j < TamaoArreglo; j++)
+		{
+
+			cout << MatrizTransitiva[i][j];
+			if (MatrizTransitiva[i][j] == 1)
+			{
+				
+				subconjuntos++;
+				
+				
+			}
+		}
+
+		cout << "\n";
+	}
+
+
+	for (int i = 0; i < TamaoArreglo; i++)
+	{
+
+		for (int j = 0; j < TamaoArreglo; j++)
+		{
+			
+			if (MatrizTransitiva[i][j] == 1 && Arreglo[i][j] == 1)
+			{
+				
+				transitivida++;
+				
+							
+			}
+			
+
+		}
+	}
+	if (transitivida == subconjuntos)
+	{
+		cout << "\nTransitiva....[Si]\n";
+		return 1;
+	}
+	else
+	{
+		cout << "\nTransitiva....[No]\n";
+		cout << "T: " << transitivida << "S: " << subconjuntos * 2;
+
+		return 2;
+	}
+
+	return 0;
+
+}
+
+
+int** EscogerTerminos(int TamanoArreglo, int* Arreglo)
+{
+	int a = 0;
+	int b = 0;
+	int op = 0;
+	int i = 0;
+	int LIM = 0;
+	int aux1 = 0;
+	int aux2 = 0;
+	bool YaIngresado = false;
+	bool partedelconj = false;
+	int posicionArre = 0;
+	int** MatrizTerminos;
+	MatrizTerminos = new int* [TamanoArreglo];
+	int Cantidad = 0;
+
+
+	for (int i = 0; i < TamanoArreglo; i++)
+	{
+		MatrizTerminos[i] = new int[TamanoArreglo];
+	}
+
+	for (int i = 0; i < TamanoArreglo; i++)
+	{
+		for (int j = 0; j < TamanoArreglo; j++)
+		{
+
+			MatrizTerminos[i][j] = 0;
+
+		}
+	}
+	
+
+	cout << "Ingreso de subconjuntos\n[1]...Automatico\n[2]...Manual\n";
+	cin >> op;
+	if (op == 1)
+	{
+		cout << "Ingresando Subconjuntos..." << endl;
+		Cantidad = rand() % (TamanoArreglo*TamanoArreglo)+1;
+		cout << "Cantidad de subconjuntos: " << Cantidad << endl;
+		cout << "Subconjuntos: R = {";
+		for (int i = 0; i < Cantidad; i++)
+		{
+			do
+			{
+
+				aux1 = a;
+				aux2 = b;
+				do
+				{
+
+					/*cout << "(_,_)\n";*/
+					posicionArre = rand() % (TamanoArreglo);
+					
+					a = Arreglo[posicionArre];
+					/*cout << endl;*/
+
+
+					for (int i = 0; i < TamanoArreglo; i++)
+					{
+
+						if (a == Arreglo[i])
+						{
+
+							partedelconj = true;
+						}
+
+					}
+					/*if (partedelconj == false)
+					{
+						cout << "Error elemento no es parte del conjunto... \nIngrese elemento denuevo\n";
+					}*/
+
+				} while (partedelconj == false);
+
+				partedelconj = false;
+
+
+				do
+				{
+					
+
+					posicionArre = rand() % (TamanoArreglo);
+					
+					b = Arreglo[posicionArre];
+					
+					
+					for (int i = 0; i < TamanoArreglo; i++)
+					{
+						if (b == Arreglo[i])
+						{
+							partedelconj = true;
+						}
+
+					}
+
+					/*if (partedelconj == false)
+					{
+						cout << "Error elemento no es parte del conjunto... \nIngrese elemento denuevo\n";
+					}*/
+
+				} while (partedelconj == false);
+				partedelconj = false;
+
+				
+				// Aqui ingreso el subconjunto
+				/*if (a == aux1 && b == aux2)
+				{
+					cout << "Error subconjunto ya ingresado...\nIngrese otro subconjunto...";
+				}*/
+
+			} while (a == aux1 && b == aux2);
+
+			cout << "(" << a << "," << b << ")";
+
+			for (int i = 0; i < TamanoArreglo; i++)
+			{
+				for (int j = 0; j < TamanoArreglo; j++)
+				{
+					if (a == Arreglo[i])
+					{
+						if (b == Arreglo[j])
+						{
+							MatrizTerminos[i][j] = 1;
+						}
+					}
+				}
+			}
+			if (i < Cantidad-1)
+			{
+				cout << ",";
+			}
+		}
+		cout << "}\n=========================================================\n\n";
+	}
+	else if (op == 2)
+	{
+		cout << "Ingrese subconjuntos de AxA:\n";
+		do
+		{
+			
+				do
+				{
+
+					cout << "(_,_)\n";
+					cin >> a;
+					cout << endl;
+
+
+					for (int i = 0; i < TamanoArreglo; i++)
+					{
+
+						if (a == Arreglo[i])
+						{
+
+							partedelconj = true;
+						}
+
+					}
+					if (partedelconj == false)
+					{
+						cout << "Error elemento no es parte del conjunto... \nIngrese elemento denuevo\n";
+					}
+
+				} while (partedelconj == false);
+
+				partedelconj = false;
+
+
+				do
+				{
+					cout << "(" << a << ",_)\n";
+
+					cin >> b;
+					cout << endl;
+					for (int i = 0; i < TamanoArreglo; i++)
+					{
+						if (b == Arreglo[i])
+						{
+							partedelconj = true;
+						}
+
+					}
+
+					if (partedelconj == false)
+					{
+						cout << "Error elemento no es parte del conjunto... \nIngrese elemento denuevo\n";
+					}
+
+				} while (partedelconj == false);
+				partedelconj = false;
+
+				cout << "(" << a << "," << b << ")\n";
+				// Aqui ingreso el subconjunto
+				
+			
+
+
+				
+
+
+
+					for (int i = 0; i < TamanoArreglo; i++)
+					{
+						for (int j = 0; j < TamanoArreglo; j++)
+						{
+							if (MatrizTerminos[i][j] == 1 )
+							{
+								
+
+									if (a == Arreglo[i] && b == Arreglo[j])
+									{
+										cout << "Error subconjunto ya ingresado...\nIngrese otro subconjunto...\n";
+										YaIngresado = true;
+									}
+								
+								
+
+							}
+						}
+					}
+
+					for (int i = 0; i < TamanoArreglo; i++)
+					{
+						for (int j = 0; j < TamanoArreglo; j++)
+						{
+							if (Arreglo[i] == a)
+							{
+								if (Arreglo[j] == b)
+								{
+									MatrizTerminos[i][j] = 1;
+								}
+							}
+						}
+					}
+			
+
+			
+
+			
+			//Verifica donde esta en la matriz y lo cambia a 1
+
+
+					if (YaIngresado == false)
+					{
+						cout << "\nSubconjunto (" << a << "," << b << ") Ingresado...\n1)...Ingresar otro subconjunto\n";
+						cout << "2)...Listo\n";
+
+						do
+						{
+							cin >> op;
+						} while (op != 1 && op != 2);
+					}
+
+					YaIngresado = false;
+
+			
+
+					LIM++;
+		} while (op != 2 && LIM < TamanoArreglo * TamanoArreglo);
+	}
+
+	cout << "  ";
+	for (int i = 0; i < TamanoArreglo; i++)
+	{
+		cout  << i + 1;
+	}
+	cout << "\n";
+	for (int i = 0; i < TamanoArreglo; i++)
+	{
+		cout <<" " << i + 1;
+		for (int j = 0; j < TamanoArreglo; j++)
+		{
+
+			cout << MatrizTerminos[i][j];
+
+		}
+
+		cout << "\n";
+	}
+
+	for (int i = 0; i < TamanoArreglo; i++)
+	{
+	cout << "[" << i+1 << "]=" << Arreglo[i];
+	}
+	cout << endl;
+	
+
+
+	return MatrizTerminos;
+}
+
+void ConjuntoCociente(int** Arreglo, int TamaoArreglo, int* ArregloConjunto)
+{
+	bool hay = false;
+	int num = 0;
+	int val = 0;
+	int* k = new int[TamaoArreglo];
+	string conjuntoCoC = "";
+	for (int i = 0; i < TamaoArreglo; i++)
+	{
+		k[i] = 0;
+	}
+
+	cout << "Clases de equivalencia: \n";
+	for (int i = 0; i < TamaoArreglo; i++)
+	{
+		
+		cout << "[" << ArregloConjunto[i] << "]: {";
+
+
+		if (hay != false || i == 0)
+		{
+			conjuntoCoC += "{";
+		}
+		
+		for (int j = 0; j < TamaoArreglo; j++)
+		{
+			if (Arreglo[i][j] == 1)
+			{
+				hay = false;
+				
+
+
+				
+				if (num <= j && num != 0)
+				{
+					cout << ",";
+					if (k[j] != 1 || hay == true)
+					{
+					conjuntoCoC += ",";
+					}
+					
+				}
+				
+				
+
+				if (i == j)
+				{
+					hay = false;
+					cout << ArregloConjunto[i];
+
+					if (k[j] != 1 )
+					{
+						hay = true;
+						conjuntoCoC += to_string(ArregloConjunto[i]);
+					}
+					
+					
+					
+					
+					
+					
+						
+					
+					
+					
+				
+					
+					
+
+				}
+				if (i != j)
+				{
+					
+					cout << ArregloConjunto[j];
+					hay = false;
+					if (j > i)
+					{
+					conjuntoCoC += to_string(ArregloConjunto[j]) ;
+					
+						hay = true;
+						k[j] = 1;
+
+					}
+					
+					
+
+					
+
+					
+
+					
+				}
+				num++;
+				
+				
+				
+				
+			}
+			
+			
+			
+			
+
+		}
+		
+		num = 0;
+		cout << "}\n";
+		if (hay != false)
+		{
+			conjuntoCoC += "}";
+		}
+		
+		
+	}
+
+	
+
+	cout << "\n\nConjunto Cociente: {";
+
+	cout << conjuntoCoC << "}";
+
+		
+
+
+}
+
+
+
+int** MatrizHasse(int TamaoArreglo, int** MatrizNormal)
+{
+	int valor = 0;
+	int** MatrizHasse;
+	MatrizHasse = new int* [TamaoArreglo];
+
+	for (int i = 0; i < TamaoArreglo; i++)
+	{
+		MatrizHasse[i] = new int[TamaoArreglo];
+	}
+
+	for (int i = 0; i < TamaoArreglo; i++)
+	{
+		for (int j = 0; j < TamaoArreglo; j++)
+		{
+
+				MatrizHasse[i][j] = MatrizNormal[i][j];
+
+				if (i==j)
+				{
+					MatrizHasse[i][j] = 0;
+				}
+		}
+	
+	}
+
+
+	return MatrizHasse;
+}
+
+
+void Hasse(int** MatrizTrans, int TamaoArreglo, int** MatrizHasse)
+{
+	for (int i = 0; i < TamaoArreglo; i++)
+	{
+		
+		for (int j = 0; j < TamaoArreglo; j++)
+		{
+			if (MatrizTrans[i][j] == MatrizHasse[i][j])
+			{
+				MatrizHasse[i][j] = 0;
+			}
+			
+		}
+
+		
+	}
+
+	cout << "\nMatriz hasse: \n";
+	cout << " ";
+	for (int i = 0; i < TamaoArreglo; i++)
+	{
+		cout << i + 1;
+	}
+	cout << "\n";
+	for (int i = 0; i < TamaoArreglo; i++)
+	{
+		cout << i + 1;
+		for (int j = 0; j < TamaoArreglo; j++)
+		{
+
+			cout << MatrizHasse[i][j];
+		}
+
+		cout << "\n";
+	}
+
+}
+
+
+
+int main()
+{
+
+	int EquivalenciaOrdenParcial = 0;
+	int Reflexivo = 0;
+	int SimetoAntiSim = 0;
+	int Transitividad = 0;
+	int* Arreglo;
+	
+	srand(time(NULL));
+	int** matrizA;
+	int** matrizT;
+	int** matrizH;
+	int** matrizHT;
+	int TamanoArreglo1;
+	
+	TamanoArreglo1 = IngresoDatos();
+	Arreglo =IngresoNumeros(TamanoArreglo1);
+	MostrarConjunto(Arreglo, TamanoArreglo1);
+	cout << "\n";
+	Arreglo = OrdenarConjuntoMatrizMenorMayor(Arreglo, TamanoArreglo1);
+	MostrarConjuntoMatriz(Arreglo, TamanoArreglo1);
+
+	matrizA = EscogerTerminos(TamanoArreglo1, Arreglo);
+	Reflexivo = muestra_reflexiva(matrizA, TamanoArreglo1);
+
+	//
+
+	SimetoAntiSim = muestra_simetria(matrizA, TamanoArreglo1);
+	matrizT = Matriz_transitiva(matrizA, TamanoArreglo1);
+	Transitividad = muestra_transitividad(matrizA, TamanoArreglo1,matrizT);
+	EquivalenciaOrdenParcial = EquivalenciauOrdenParcial(Reflexivo, SimetoAntiSim, Transitividad);
+	
+	if (EquivalenciaOrdenParcial == 1)
+	{
+		ConjuntoCociente(matrizA, TamanoArreglo1, Arreglo);
+	}
+	else
+	{
+		matrizH = MatrizHasse(TamanoArreglo1, matrizA);
+		matrizHT = Matriz_transitiva(matrizH, TamanoArreglo1);
+		Hasse(matrizHT, TamanoArreglo1, matrizH);
+	}
+
+	
+	getch();
+	return 0;
+
+
+}
+
