@@ -139,7 +139,7 @@ void MostrarConjuntoMatriz(int* Arreglo, int TamanoArreglo)
 
 int EquivalenciauOrdenParcial(int Reflexivdad, int Simetria, int Transitividad)
 {
-	if (Reflexivdad == 1 && Simetria == 2 && Transitividad == 1)
+	if (Reflexivdad == 1 && Simetria == 2 && Transitividad == 1 || Reflexivdad == 1 && Simetria == 3 && Transitividad == 1)
 	{
 		cout << "La relacion es de Orden Parcial al ser Reflexiva, Antisimetrica y Transitiva.\n";
 		return 2;
