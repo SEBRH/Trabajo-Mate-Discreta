@@ -761,6 +761,9 @@ void ConjuntoCociente(int** Arreglo, int TamaoArreglo, int* ArregloConjunto)
 	int num = 0;
 	int val = 0;
 	int* k = new int[TamaoArreglo];
+	
+
+	int cond = 0;
 	string conjuntoCoC = "";
 	for (int i = 0; i < TamaoArreglo; i++)
 	{
@@ -774,7 +777,7 @@ void ConjuntoCociente(int** Arreglo, int TamaoArreglo, int* ArregloConjunto)
 		cout << "[" << ArregloConjunto[i] << "]: {";
 
 
-		if (hay != false || i == 0)
+		if (hay != false && cond < TamaoArreglo || i == 0)
 		{
 			conjuntoCoC += "{";
 		}
@@ -794,6 +797,7 @@ void ConjuntoCociente(int** Arreglo, int TamaoArreglo, int* ArregloConjunto)
 					if (k[j] != 1 || hay == true)
 					{
 					conjuntoCoC += ",";
+					
 					}
 					
 				}
@@ -809,6 +813,7 @@ void ConjuntoCociente(int** Arreglo, int TamaoArreglo, int* ArregloConjunto)
 					{
 						hay = true;
 						conjuntoCoC += to_string(ArregloConjunto[i]);
+						cond++;
 					}
 					
 					
@@ -830,13 +835,17 @@ void ConjuntoCociente(int** Arreglo, int TamaoArreglo, int* ArregloConjunto)
 					
 					cout << ArregloConjunto[j];
 					hay = false;
-					if (j > i)
+					if (j > i && k[j] != 1)
 					{
-					conjuntoCoC += to_string(ArregloConjunto[j]) ;
+						conjuntoCoC +=  to_string(ArregloConjunto[j]);
 					
+					
+					
+
 						hay = true;
 						k[j] = 1;
-
+						cond++;
+						
 					}
 					
 					
@@ -862,15 +871,19 @@ void ConjuntoCociente(int** Arreglo, int TamaoArreglo, int* ArregloConjunto)
 		
 		num = 0;
 		cout << "}\n";
-		if (hay != false)
+		if (hay != false )
 		{
 			conjuntoCoC += "}";
+			
 		}
 		
 		
 	}
 
-	
+	for (int i = 0; i < TamaoArreglo; i++)
+	{
+		cout << "\nwea:" + to_string(k[i]);
+	}
 
 	cout << "\n\nConjunto Cociente: {";
 
