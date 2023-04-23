@@ -201,6 +201,7 @@ int muestra_reflexiva(int** Arreglo, int TamaoArreglo) {
 
 int muestra_simetria(int** Arreglo, int TamaoArreglo)
 {
+	int Simetria;
 	int val = 1;
 	int S = 0;
 	bool AS = true;
@@ -218,7 +219,7 @@ int muestra_simetria(int** Arreglo, int TamaoArreglo)
 					S++;
 				}
 
-				if (Arreglo[i][j] != Arreglo[j][i])
+				if (Arreglo[i][j] != Arreglo[j][i] && Arreglo[i][j] + Arreglo[j][i] <= 1)
 				{
 					
 					
@@ -258,7 +259,10 @@ int muestra_simetria(int** Arreglo, int TamaoArreglo)
 					
 				
 			}
-			
+			if (i == j && Arreglo[i][j] == 1)
+			{
+				AS = false;
+			}
 			
 
 
@@ -269,23 +273,38 @@ int muestra_simetria(int** Arreglo, int TamaoArreglo)
 		cout << "Antisimetrica.[No]\n";
 		cout << "Simetrica.....[Si]\n";
 		cout << "Asimetrica....[No]\n";
-		return 1;
+		Simetria = 1;
 	}
 	else if(ATS > 0 && AS == false)
 	{
 		cout << "Antisimetrica.[Si]\n"; 
 		cout << "Simetrica.....[No]\n";
 		cout << "Asimetrica....[No]\n";
-		return 2;
+		Simetria = 2;
 	}
 
-	if (AS == true)
+	else if (AS == true && S < 0 && ATS > 0)
+	{
+		cout << "Antisimetrica.[Si]\n";
+		cout << "Simetrica.....[No]\n";
+		cout << "Asimetrica....[Si]\n";
+		Simetria = 3;
+		        
+	}
+	else if (AS == true && S < 0 && ATS == 0)
 	{
 		cout << "Antisimetrica.[No]\n";
 		cout << "Simetrica.....[No]\n";
 		cout << "Asimetrica....[Si]\n";
-		return 3;
-		        
+		Simetria = 3;
+
+	}
+	else
+	{
+		cout << "Antisimetrica.[No]\n";
+		cout << "Simetrica.....[No]\n";
+		cout << "Asimetrica....[No]\n";
+		Simetria = 0;
 	}
 
 	
@@ -299,7 +318,9 @@ int muestra_simetria(int** Arreglo, int TamaoArreglo)
 		i>j";
 	}*/
 
-	return 0;
+	
+
+	return Simetria;
 }
 
 int EncontrarValoresDeMatrizTrans(int** Arreglo, int TamaoArreglo, int j, int n)
@@ -995,3 +1016,4 @@ int main()
 
 
 }
+
