@@ -14,12 +14,12 @@ int IngresoDatos()
 {
 	int TamanoArreglo;
 	
-	cout << "Ingrese tamano del arreglo (tiene que ser menor que 7 y mayor que 4): ";
+	cout << "Ingrese tamano del arreglo (tiene que ser menor o igual que 7 o mayor o igual que 4): ";
 	cin >> TamanoArreglo;
 
 	while (TamanoArreglo > 7 || TamanoArreglo < 4)
 	{
-		cout << "Ingrese tamano del arreglo (tiene que ser menor que 7 y mayor que 4): ";
+		cout << "Ingrese tamano del arreglo (tiene que ser menor o igual que 7 o mayor o igual que 4): ";
 		cin >> TamanoArreglo;
 	}
 	//Validacion
