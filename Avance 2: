@@ -296,7 +296,7 @@ int muestra_simetria(int** Arreglo, int TamaoArreglo)
 		cout << "Antisimetrica.[No]\n";
 		cout << "Simetrica.....[No]\n";
 		cout << "Asimetrica....[Si]\n";
-		Simetria = 3;
+		Simetria = 4;
 
 	}
 	else
