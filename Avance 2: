@@ -880,10 +880,7 @@ void ConjuntoCociente(int** Arreglo, int TamaoArreglo, int* ArregloConjunto)
 		
 	}
 
-	for (int i = 0; i < TamaoArreglo; i++)
-	{
-		cout << "\nwea:" + to_string(k[i]);
-	}
+	
 
 	cout << "\n\nConjunto Cociente: {";
 
